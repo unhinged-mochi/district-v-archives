@@ -1,0 +1,64 @@
+relationships:
+  # El Batchelors / BGC cross-faction
+  - from: "luca-kaneshiro"
+    to: "jurard-rexford"
+    type: "ally"
+    label: "Criminal associates"
+
+  # Cross-faction conflicts
+  - from: "luca-kaneshiro"
+    to: "vox-akuma"
+    type: "enemy"
+    label: "Criminal vs Law Enforcement"
+
+  # Vanilla Unicorn
+  - from: "taiga-chama"
+    to: "lan-philia"
+    type: "ally"
+    label: "Vanilla Unicorn co-owners"
+
+  # Police leadership
+  - from: "vox-akuma"
+    to: "taiga-chama"
+    type: "ally"
+    label: "Police chief succession"
+
+  # uwu Cafe connections (cross-faction)
+  - from: "shu-yamino"
+    to: "jurard-rexford"
+    type: "ally"
+    label: "uwu Cafe"
+  - from: "shu-yamino"
+    to: "riko-solari"
+    type: "ally"
+    label: "uwu Cafe"
+  - from: "luca-kaneshiro"
+    to: "riko-solari"
+    type: "ally"
+    label: "uwu Cafe"
+  - from: "sanpaku"
+    to: "riko-solari"
+    type: "ally"
+    label: "uwu Cafe"
+
+  # Burger Shot family
+  - from: "lucius-merryweather"
+    to: "rua"
+    type: "ally"
+    label: "Burgerweather family"
+  - from: "lucius-merryweather"
+    to: "amikotoash"
+    type: "ally"
+    label: "Burger Shot staff"
+
+  # EMS / Soju Boys manager
+  - from: "altus-zendoji"
+    to: "leo-kuga"
+    type: "ally"
+    label: "Soju Boys / EMS leadership"
+
+  # District V co-hosts
+  - from: "luca-kaneshiro"
+    to: "yu-q-wilson"
+    type: "ally"
+    label: "District V co-hosts"
