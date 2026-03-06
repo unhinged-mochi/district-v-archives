@@ -2,7 +2,7 @@
 name: "Winnie Nightevil Agnes"
 streamer: "moka anon"
 agency: "Independent"
-faction: "civilian"
+faction: "vanilla-unicorn"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

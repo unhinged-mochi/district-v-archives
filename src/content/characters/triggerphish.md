@@ -2,7 +2,7 @@
 name: "Sia N. Court"
 streamer: "TRiGGERPHiSH"
 agency: "Aegis-Link"
-faction: "civilian"
+faction: "vanilla-unicorn"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

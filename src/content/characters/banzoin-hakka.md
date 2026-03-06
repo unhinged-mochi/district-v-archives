@@ -2,7 +2,7 @@
 name: "Murder"
 streamer: "Banzoin Hakka"
 agency: "HOLOSTARS EN"
-faction: "civilian"
+faction: "vanilla-unicorn"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

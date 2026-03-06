@@ -2,7 +2,7 @@
 name: "Gerry Addric"
 streamer: "Kohaku"
 agency: "Independent"
-faction: "civilian"
+faction: "vanilla-unicorn"
 status: "EMPLOYED"
 threatLevel: 2
 associates: []

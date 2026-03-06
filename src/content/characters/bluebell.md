@@ -2,7 +2,7 @@
 name: "Hunter Nystrom"
 streamer: "Bluebell"
 agency: "Independent"
-faction: "civilian"
+faction: "vanilla-unicorn"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

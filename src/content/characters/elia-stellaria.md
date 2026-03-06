@@ -2,7 +2,7 @@
 name: "Misty Meanors"
 streamer: "Elia Stellaria"
 agency: "Independent"
-faction: "police"
+faction: "vanilla-unicorn"
 status: "ACTIVE DUTY"
 threatLevel: 3
 associates: ["azeria", "bee", "claude-clawmark", "crimzon-ruze", "croc", "elveira", "envi", "hylo", "nana-asteria", "omi", "phreid", "remia-aotsuki", "rosco-graves", "roy-chiato", "sugi-aoki", "taiga-chama", "vox-akuma"]

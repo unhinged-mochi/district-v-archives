@@ -2,7 +2,7 @@
 name: "Grandma Mei (71)"
 streamer: "Harmony Kyrus"
 agency: "INVICTA"
-faction: "civilian"
+faction: "vanilla-unicorn"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

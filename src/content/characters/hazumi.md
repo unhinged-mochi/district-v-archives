@@ -2,7 +2,7 @@
 name: "Anya Neeze"
 streamer: "Hazumi"
 agency: "HEIRS"
-faction: "civilian"
+faction: "vanilla-unicorn"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

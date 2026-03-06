@@ -2,7 +2,7 @@
 name: "Song Junwee"
 streamer: "Keiseira"
 agency: "Independent"
-faction: "civilian"
+faction: "vanilla-unicorn"
 status: "AT LARGE"
 threatLevel: 1
 associates: []
