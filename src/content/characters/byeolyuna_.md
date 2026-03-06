@@ -1,5 +1,5 @@
 ---
-name: "Anita Heist Byeol Yuna"
+name: "Anita Heist"
 streamer: "별 ʏᴜɴᴀ"
 agency: "Independent"
 faction: "aura"
