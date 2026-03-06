@@ -72,6 +72,7 @@ const ICONS = [
   { id: 'case-files', label: 'CASE FILES', icon: 'folder' },
   { id: 'suspects', label: 'DOSSIERS', icon: 'folder' },
   { id: 'factions', label: 'FACTIONS', icon: 'folder' },
+  { id: 'sightings', label: 'SIGHTINGS', icon: 'folder' },
   { id: 'network', label: 'NETWORK\nANALYSIS', icon: 'network' },
   { id: 'readme', label: 'README.txt', icon: 'file' },
 ];

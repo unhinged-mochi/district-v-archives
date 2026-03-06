@@ -64,7 +64,18 @@ export default function DossierView({ character, allCharacters = [], onOpenChara
           </div>
           <div>
             <span className="text-terminal-amber-dim">STREAMER: </span>
-            <span>{character.streamer}</span>
+            {character.youtube || character.twitch ? (
+              <a
+                href={character.youtube ?? character.twitch}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:opacity-80"
+              >
+                {character.streamer}
+              </a>
+            ) : (
+              <span>{character.streamer}</span>
+            )}
           </div>
           <div>
             <span className="text-terminal-amber-dim">AGENCY: </span>

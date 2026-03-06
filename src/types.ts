@@ -7,8 +7,19 @@ export interface Character {
   status: 'AT LARGE' | 'IN CUSTODY' | 'DECEASED' | 'ACTIVE DUTY' | 'DISCHARGED' | 'EMPLOYED';
   threatLevel: number;
   mugshot?: string;
+  youtube?: string;
+  twitch?: string;
   associates: string[];
   body: string;
+}
+
+export interface Sighting {
+  id: string;
+  title: string;
+  url: string;
+  author?: string;
+  characters: string[];
+  date?: string;
 }
 
 export interface Day {

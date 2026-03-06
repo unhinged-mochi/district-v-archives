@@ -11,6 +11,21 @@ export function parseBody(body: string, options: ParseBodyOptions = {}): React.R
   let key = 0;
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
 
+  function processInline(text: string): React.ReactNode[] {
+    const nodes: React.ReactNode[] = [];
+    const boldRe = /\*\*(.+?)\*\*/g;
+    let lastIdx = 0;
+    let m: RegExpExecArray | null;
+    while ((m = boldRe.exec(text)) !== null) {
+      if (m.index > lastIdx) nodes.push(<span key={key++}>{text.slice(lastIdx, m.index)}</span>);
+      nodes.push(<strong key={key++}>{m[1]}</strong>);
+      lastIdx = m.index + m[0].length;
+    }
+    if (lastIdx === 0) return [<span key={key++}>{text}</span>];
+    if (lastIdx < text.length) nodes.push(<span key={key++}>{text.slice(lastIdx)}</span>);
+    return nodes;
+  }
+
   for (const line of lines) {
     if (line.startsWith('## ')) {
       const heading = line.slice(3).toUpperCase();
@@ -34,7 +49,7 @@ export function parseBody(body: string, options: ParseBodyOptions = {}): React.R
 
     while ((match = linkRegex.exec(line)) !== null) {
       if (match.index > lastIndex) {
-        lineparts.push(<span key={key++}>{line.slice(lastIndex, match.index)}</span>);
+        lineparts.push(...processInline(line.slice(lastIndex, match.index)));
       }
 
       const text = match[1];
@@ -83,7 +98,7 @@ export function parseBody(body: string, options: ParseBodyOptions = {}): React.R
     }
 
     if (lastIndex < line.length) {
-      lineparts.push(<span key={key++}>{line.slice(lastIndex)}</span>);
+      lineparts.push(...processInline(line.slice(lastIndex)));
     }
 
     if (line.startsWith('- ')) {

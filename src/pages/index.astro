@@ -9,6 +9,7 @@ import DesktopApp from '../components/DesktopApp';
 const charactersRaw = await getCollection('characters');
 const daysRaw = await getCollection('days');
 const factionsRaw = await getCollection('factions');
+const sightingsRaw = await getCollection('sightings');
 
 // Load relationships YAML
 let relationships: any[] = [];
@@ -40,6 +41,11 @@ const factions = factionsRaw.map((f) => ({
   ...f.data,
   body: f.body || '',
 }));
+
+const sightings = sightingsRaw.map((s) => ({
+  id: s.id,
+  ...s.data,
+}));
 ---
 
 <html lang="en">
@@ -63,6 +69,7 @@ const factions = factionsRaw.map((f) => ({
       days={days}
       factions={factions}
       relationships={relationships}
+      sightings={sightings}
     />
     <script>
       console.log(

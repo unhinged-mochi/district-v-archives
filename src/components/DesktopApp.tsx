@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
-import type { Character, Day, Faction, Relationship, WindowData } from '../types';
+import type { Character, Day, Faction, Relationship, Sighting, WindowData } from '../types';
 import Boot from './Boot';
 import Desktop from './Desktop';
 import CRTOverlay from './CRTOverlay';
@@ -39,6 +39,7 @@ interface DesktopAppProps {
   days: Day[];
   factions: Faction[];
   relationships: Relationship[];
+  sightings: Sighting[];
 }
 
 const README_TEXT = `DISTRICT V ARCHIVE
@@ -74,7 +75,7 @@ Terminal: LSPD-TERM-v5.0.2
 Build: district-v-archive
 Clearance: LEVEL 5 REQUIRED`;
 
-export default function DesktopApp({ characters, days, factions, relationships }: DesktopAppProps) {
+export default function DesktopApp({ characters, days, factions, relationships, sightings }: DesktopAppProps) {
   const [booting, setBooting] = useState(true);
   const [windows, setWindows] = useState<WindowData[]>([]);
   const nextZIndexRef = useRef(100);
@@ -83,6 +84,7 @@ export default function DesktopApp({ characters, days, factions, relationships }
   const [settings, setSettings] = useState<EffectsSettings>(loadSettings);
 
   const characterMap = useMemo(() => new Map(characters.map(c => [c.id, c])), [characters]);
+  const sightingMap = useMemo(() => new Map(sightings.map(s => [s.id, s])), [sightings]);
 
   const toggleSetting = useCallback((key: keyof EffectsSettings) => {
     setSettings((prev) => {
@@ -196,12 +198,14 @@ export default function DesktopApp({ characters, days, factions, relationships }
           break;
         }
         case 'suspects': {
-          const items = factions.map((f) => ({
-            id: f.id,
-            label: f.name.toUpperCase(),
-            type: 'dir' as const,
-            meta: f.members.length + ' MEMBER(S)',
-          }));
+          const items = [...factions]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((f) => ({
+              id: f.id,
+              label: f.name.toUpperCase(),
+              type: 'dir' as const,
+              meta: f.members.length + ' MEMBER(S)',
+            }));
           addWindow({
             id: 'folder-suspects',
             title: 'LSPD // DOSSIERS',
@@ -214,12 +218,14 @@ export default function DesktopApp({ characters, days, factions, relationships }
           break;
         }
         case 'factions': {
-          const items = factions.map((f) => ({
-            id: f.id,
-            label: f.name.toUpperCase() + '.dat',
-            type: 'file' as const,
-            meta: f.type,
-          }));
+          const items = [...factions]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((f) => ({
+              id: f.id,
+              label: f.name.toUpperCase() + '.dat',
+              type: 'file' as const,
+              meta: f.type,
+            }));
           addWindow({
             id: 'folder-factions',
             title: 'LSPD // FACTIONS',
@@ -249,22 +255,40 @@ export default function DesktopApp({ characters, days, factions, relationships }
           });
           break;
         }
+        case 'sightings': {
+          const items = [...sightings]
+            .sort((a, b) => (a.date ?? a.title).localeCompare(b.date ?? b.title))
+            .map((s) => ({
+              id: s.id,
+              label: s.title.toUpperCase(),
+              type: 'file' as const,
+              meta: [s.author, s.date].filter(Boolean).join(' // '),
+            }));
+          addWindow({
+            id: 'folder-sightings',
+            title: 'LSPD // SIGHTINGS',
+            type: 'folder',
+            content: {
+              items,
+              handler: 'sighting',
+            },
+          });
+          break;
+        }
         default: {
           // Check if it's a faction subfolder for suspects
           const faction = factions.find((f) => f.id === folderId);
           if (faction) {
-            const items = faction.members
-              .map((mId) => {
-                const ch = characterMap.get(mId);
-                if (!ch) return null;
-                return {
-                  id: ch.id,
-                  label: ch.name.toUpperCase() + '.dossier',
-                  type: 'file' as const,
-                  meta: ch.status,
-                };
-              })
-              .filter(Boolean) as Array<{ id: string; label: string; type: 'file'; meta: string }>;
+            const resolved = faction.members
+              .map((mId) => characterMap.get(mId))
+              .filter((ch): ch is Character => !!ch)
+              .sort((a, b) => a.name.localeCompare(b.name));
+            const items = resolved.map((ch) => ({
+              id: ch.id,
+              label: ch.name.replace(/\.$/, '').toUpperCase() + '.dossier',
+              type: 'file' as const,
+              meta: ch.status,
+            }));
             addWindow({
               id: 'folder-suspects-' + folderId,
               title: 'LSPD // DOSSIERS // ' + faction.name.toUpperCase(),
@@ -279,7 +303,7 @@ export default function DesktopApp({ characters, days, factions, relationships }
         }
       }
     },
-    [days, factions, characterMap, addWindow]
+    [days, factions, sightings, characterMap, addWindow]
   );
 
   const windowsRef = useRef(windows);
@@ -310,9 +334,14 @@ export default function DesktopApp({ characters, days, factions, relationships }
         case 'character':
           openCharacter(itemId);
           break;
+        case 'sighting': {
+          const sighting = sightingMap.get(itemId);
+          if (sighting) window.open(sighting.url, '_blank', 'noopener,noreferrer');
+          break;
+        }
       }
     },
-    [openDay, openFaction, openFolder, openCharacter]
+    [openDay, openFaction, openFolder, openCharacter, sightingMap]
   );
 
   const moveWindow = useCallback((id: string, x: number, y: number) => {

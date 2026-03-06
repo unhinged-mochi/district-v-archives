@@ -22,8 +22,52 @@ interface CommandPaletteProps {
 interface SearchItem {
   id: string;
   label: string;
+  searchKey: string;
   category: 'SUSPECT' | 'OFFICER' | 'MEDIC' | 'LEGAL' | 'CIVILIAN' | 'EMPLOYEE' | 'CASE FILE' | 'FACTION';
   handler: () => void;
+}
+
+/**
+ * Fuzzy match query against target. Returns a numeric score (lower = better match)
+ * or null if the query doesn't match at all.
+ *
+ * Scoring rules:
+ *  - Exact substring → strongest bonus (-10000 + position, so earlier = better)
+ *  - Consecutive char run in fuzzy match → bonus proportional to run length
+ *  - Gap between matched chars → penalty
+ */
+function fuzzyScore(query: string, target: string): number | null {
+  const q = query.toLowerCase();
+  const t = target.toLowerCase();
+
+  // Exact substring wins outright
+  const exactIdx = t.indexOf(q);
+  if (exactIdx !== -1) return -10000 + exactIdx;
+
+  // Fuzzy: every char in query must appear in order in target
+  let score = 0;
+  let ti = 0;
+  let qi = 0;
+  let lastMatch = -1;
+  let consecutive = 0;
+
+  while (qi < q.length && ti < t.length) {
+    if (q[qi] === t[ti]) {
+      if (lastMatch === ti - 1) {
+        consecutive++;
+        score -= consecutive * 4; // reward runs
+      } else {
+        consecutive = 0;
+        score += (ti - lastMatch - 1) * 2; // gap penalty
+      }
+      lastMatch = ti;
+      qi++;
+    }
+    ti++;
+  }
+
+  if (qi < q.length) return null; // not all query chars found
+  return score;
 }
 
 const FACTION_CATEGORY: Record<string, SearchItem['category']> = {
@@ -61,15 +105,18 @@ export default function CommandPalette({
       items.push({
         id: c.id,
         label: c.name,
+        searchKey: c.name + ' ' + c.streamer,
         category: FACTION_CATEGORY[c.faction] || 'SUSPECT',
         handler: () => onOpenCharacter(c.id),
       });
     });
 
     days.forEach((d) => {
+      const label = `Day ${d.day} - ${d.title}`;
       items.push({
         id: d.id,
-        label: `Day ${d.day} - ${d.title}`,
+        label,
+        searchKey: label,
         category: 'CASE FILE',
         handler: () => onOpenDay(d.id),
       });
@@ -79,19 +126,24 @@ export default function CommandPalette({
       items.push({
         id: f.id,
         label: f.name,
+        searchKey: f.name,
         category: 'FACTION',
         handler: () => onOpenFaction(f.id),
       });
     });
 
+    items.sort((a, b) => a.label.localeCompare(b.label));
     return items;
   }, [characters, days, factions, onOpenCharacter, onOpenDay, onOpenFaction]);
 
-  // Filter results
+  // Filter and rank results
   const results = useMemo(() => {
     if (!query.trim()) return searchItems;
-    const q = query.toLowerCase();
-    return searchItems.filter((item) => item.label.toLowerCase().includes(q));
+    return searchItems
+      .map((item) => ({ item, score: fuzzyScore(query, item.searchKey) }))
+      .filter(({ score }) => score !== null)
+      .sort((a, b) => (a.score as number) - (b.score as number))
+      .map(({ item }) => item);
   }, [query, searchItems]);
 
   // Reset selection when results change

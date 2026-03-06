@@ -61,26 +61,32 @@ export default function FolderView({ items, onOpen }: FolderViewProps) {
       </div>
 
       {/* File rows */}
-      {items.map((item) => (
-        <button
-          key={item.id}
-          className="file-row flex gap-4 px-3 py-2 cursor-pointer items-center w-full bg-transparent border-none text-left"
-          aria-label={`${item.type === 'dir' ? 'Directory' : 'File'}: ${item.label}${item.meta ? `, ${item.meta}` : ''}`}
-          onClick={() => onOpen(item.id, item.type)}
-        >
-          <span className="w-8 flex items-center justify-center">
-            {item.type === 'dir' ? <SmallFolderIcon /> : <SmallFileIcon />}
-          </span>
-          <span className="flex-1 text-terminal-amber">
-            {item.label}
-          </span>
-          <span
-            className="w-32 text-right text-terminal-amber-dim"
+      {items.length === 0 ? (
+        <div className="text-terminal-amber-dim py-4 px-3 text-center">
+          NO RECORDS ON FILE
+        </div>
+      ) : (
+        items.map((item) => (
+          <button
+            key={item.id}
+            className="file-row flex gap-4 px-3 py-2 cursor-pointer items-center w-full bg-transparent border-none text-left"
+            aria-label={`${item.type === 'dir' ? 'Directory' : 'File'}: ${item.label}${item.meta ? `, ${item.meta}` : ''}`}
+            onClick={() => onOpen(item.id, item.type)}
           >
-            {item.meta || ''}
-          </span>
-        </button>
-      ))}
+            <span className="w-8 flex items-center justify-center">
+              {item.type === 'dir' ? <SmallFolderIcon /> : <SmallFileIcon />}
+            </span>
+            <span className="flex-1 text-terminal-amber">
+              {item.label}
+            </span>
+            <span
+              className="w-32 text-right text-terminal-amber-dim"
+            >
+              {item.meta || ''}
+            </span>
+          </button>
+        ))
+      )}
 
       {/* Footer */}
       <div

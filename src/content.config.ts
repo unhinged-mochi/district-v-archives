@@ -11,6 +11,8 @@ const characters = defineCollection({
     status: z.enum(['AT LARGE', 'IN CUSTODY', 'DECEASED', 'ACTIVE DUTY', 'DISCHARGED', 'EMPLOYED']),
     threatLevel: z.number().min(1).max(10),
     mugshot: z.string().optional(),
+    youtube: z.string().optional(),
+    twitch: z.string().optional(),
     associates: z.array(z.string()).default([]),
   }),
 });
@@ -36,4 +38,15 @@ const factions = defineCollection({
   }),
 });
 
-export const collections = { characters, days, factions };
+const sightings = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/sightings' }),
+  schema: z.object({
+    title: z.string(),
+    url: z.string(),
+    author: z.string().optional(),
+    characters: z.array(z.string()).default([]),
+    date: z.string().optional(),
+  }),
+});
+
+export const collections = { characters, days, factions, sightings };
