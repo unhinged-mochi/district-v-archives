@@ -2,9 +2,9 @@
 name: "Aura"
 color: "#9D4EDD"
 colorClass: "aura"
-leader: "dk-graves"
+leader: "rai-galilei"
 type: "Criminal"
-members: ["ao-wuwu", "byeolyuna_", "derem-kado", "dk-graves", "elly", "jelly", "jun-akane", "lindo-abyss", "rai-galilei", "ryu-hari"]
+members: ["ao-wuwu", "byeolyuna_", "dk-graves", "elly", "jelly", "jun-akane", "lindo-abyss", "rai-galilei", "ryu-hari"]
 formerMembers: ["hachi"]
 ---
 

@@ -2,7 +2,7 @@
 name: "Louise Cielo"
 streamer: "Derem Kado"
 agency: "NIJISANJI EN"
-faction: "aura"
+faction: "civilian"
 status: "AT LARGE"
 threatLevel: 1
 associates: ["ao-wuwu", "byeolyuna_", "dk-graves", "elly", "hachi", "jelly", "jun-akane", "lindo-abyss", "rai-galilei", "ryu-hari"]
