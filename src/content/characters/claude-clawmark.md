@@ -13,4 +13,4 @@ An officer of the Los Santos Police Department. Married to his job. Wears a blac
 ## Profile
 - **Job:** Police
 - **Role:** Officer
-- **Undercover alias:** T-Bag
+- **Undercover alias:** Jango

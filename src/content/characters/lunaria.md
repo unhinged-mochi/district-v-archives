@@ -3,7 +3,7 @@ name: "Lulu García (Granny Lulu)"
 streamer: "Lunaria"
 agency: "LUMINARA"
 faction: "burger-shot"
-status: "AT LARGE"
+status: "EMPLOYED"
 threatLevel: 1
 associates: []
 ---
@@ -13,4 +13,4 @@ Real name Lulu García, affectionately known as Granny Lulu. An employee at Burg
 ## Profile
 - **Real name:** Lulu García
 - **Job:** Food Service
-- **Role:** Burger Shot employee
+- **Role:** Burger Shot manager

@@ -12,4 +12,6 @@ Ex-street rat, rookie cop, likes cute things, needs music on during a car chase,
 
 ## Profile
 - **Job:** Police
-- **Role:** rookie cop
+- **Role:** Rookie cop
+- **Undercover alias:** T-Bag
+- **Undercover appearance:** Customized hot pink uniform, matching police cruiser, brown bag mask
