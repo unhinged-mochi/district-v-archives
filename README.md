@@ -12,7 +12,8 @@ A retro CRT terminal-themed web archive for **District V**, the all-VTuber GTA V
 - **Faction intelligence** — 12 factions: Police, EMS, DOJ, El Batchelors, BGC, Vanilla Unicorn, Burger Shot, uwu Cafe, Mechanic Shop, Criminal Underground, Civilians, Hospital
 - **Case files** — Day-by-day event recaps
 - **Network graph** — D3-powered relationship visualization
-- **Command palette** — Keyboard-driven search (`Ctrl+K`)
+- **Sightings** — Community Twitter/X clips tagged by character and faction
+- **Command palette** — Fuzzy search by character name or streamer handle (`Ctrl+K`)
 - **CRT effects** — Scanlines, flicker, and amber glow (toggleable, respects `prefers-reduced-motion`)
 - **Settings panel** — Toggle visual effects
 
@@ -43,6 +44,7 @@ src/content/
   characters/    # 135+ character .md files
   factions/      # 12 faction .md files
   days/          # Day-by-day case file recaps
+  sightings/     # Community Twitter/X clips
   relationships.yaml
 ```
 
@@ -62,6 +64,29 @@ associates: ["other-slug"]
 ---
 
 Lore and description here.
+```
+
+### Adding a sighting
+
+Create `src/content/sightings/your-slug.md`:
+
+```md
+---
+title: "Clip title"
+url: "https://x.com/..."
+author: "@handle"
+characters: ["character-slug"]
+date: "2026-03-06"
+---
+```
+
+### Adding streamer links to a dossier
+
+Add `youtube` or `twitch` to a character's frontmatter — the STREAMER field will become a clickable link:
+
+```yaml
+youtube: "https://youtube.com/@handle"
+twitch: "https://twitch.tv/handle"
 ```
 
 ## Scripts
