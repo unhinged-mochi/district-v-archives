@@ -1,6 +1,6 @@
 ---
-name: "Lunaria Ayaren"
-streamer: "Lunaria"
+name: "Granny Lulu"
+streamer: "Lunaria Ayaren"
 agency: "LUMINARA"
 faction: "burger-shot"
 status: "AT LARGE"

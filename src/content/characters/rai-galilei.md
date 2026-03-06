@@ -1,8 +1,8 @@
 ---
-name: "Louis"
+name: "Louis Cielo"
 streamer: "Rai Galilei"
 agency: "NIJISANJI EN"
-faction: "civilian"
+faction: "aura"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

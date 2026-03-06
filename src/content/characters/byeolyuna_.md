@@ -2,7 +2,7 @@
 name: "Anita Heist Byeol Yuna"
 streamer: "별 ʏᴜɴᴀ"
 agency: "Independent"
-faction: "criminal"
+faction: "aura"
 status: "AT LARGE"
 threatLevel: 6
 associates: ["dk-graves", "lykolianna", "regis-altare", "ryoma-barrenwort"]

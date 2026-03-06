@@ -2,7 +2,7 @@
 name: "River Kawa"
 streamer: "Ryu Hari / ハリ"
 agency: "NIJISANJI EN"
-faction: "civilian"
+faction: "aura"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

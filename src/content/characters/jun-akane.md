@@ -2,7 +2,7 @@
 name: "Janus Perfidy"
 streamer: "Jun Akane"
 agency: "Independent"
-faction: "civilian"
+faction: "aura"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

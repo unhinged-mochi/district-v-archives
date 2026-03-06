@@ -2,7 +2,7 @@
 name: "Helly Hightail"
 streamer: "Elly"
 agency: "Independent"
-faction: "civilian"
+faction: "aura"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

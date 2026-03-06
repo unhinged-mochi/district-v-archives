@@ -2,7 +2,7 @@
 name: "Mr. Toad"
 streamer: "D.K Graves"
 agency: "NIJISANJI EN"
-faction: "criminal"
+faction: "aura"
 status: "AT LARGE"
 threatLevel: 5
 associates: ["byeolyuna_", "lykolianna", "regis-altare", "ryoma-barrenwort"]

@@ -1,8 +1,8 @@
 ---
-name: "Jellydoughnut"
-streamer: "Jelly"
+name: "Jennifer"
+streamer: "JellyDoughnut"
 agency: "Independent"
-faction: "civilian"
+faction: "aura"
 status: "AT LARGE"
 threatLevel: 1
 associates: []

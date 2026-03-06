@@ -1,8 +1,8 @@
 ---
-name: "Hachiko Ueno"
+name: "Alysse Itried"
 streamer: "Hachi"
 agency: "Independent"
-faction: "civilian"
+faction: "aura"
 status: "AT LARGE"
 threatLevel: 1
 associates: []
