@@ -22,9 +22,21 @@ interface CommandPaletteProps {
 interface SearchItem {
   id: string;
   label: string;
-  category: 'SUSPECT' | 'CASE FILE' | 'FACTION';
+  category: 'SUSPECT' | 'OFFICER' | 'MEDIC' | 'LEGAL' | 'CIVILIAN' | 'EMPLOYEE' | 'CASE FILE' | 'FACTION';
   handler: () => void;
 }
+
+const FACTION_CATEGORY: Record<string, SearchItem['category']> = {
+  'police': 'OFFICER',
+  'ems': 'MEDIC',
+  'doj': 'LEGAL',
+  'civilian': 'CIVILIAN',
+  'burger-shot': 'EMPLOYEE',
+  'mechanic-shop': 'EMPLOYEE',
+  'hospital': 'EMPLOYEE',
+  'vanilla-unicorn': 'EMPLOYEE',
+  'uwu-cafe': 'EMPLOYEE',
+};
 
 export default function CommandPalette({
   characters,
@@ -49,7 +61,7 @@ export default function CommandPalette({
       items.push({
         id: c.id,
         label: c.name,
-        category: 'SUSPECT',
+        category: FACTION_CATEGORY[c.faction] || 'SUSPECT',
         handler: () => onOpenCharacter(c.id),
       });
     });
@@ -129,6 +141,11 @@ export default function CommandPalette({
   const getCategoryColor = (category: SearchItem['category']) => {
     switch (category) {
       case 'SUSPECT': return 'var(--color-status-danger)';
+      case 'OFFICER': return 'var(--color-faction-police)';
+      case 'MEDIC': return 'var(--color-faction-ems)';
+      case 'LEGAL': return 'var(--color-status-info)';
+      case 'CIVILIAN': return 'var(--color-status-neutral)';
+      case 'EMPLOYEE': return 'var(--color-status-warning)';
       case 'CASE FILE': return 'var(--color-status-info)';
       case 'FACTION': return 'var(--color-status-safe)';
     }
