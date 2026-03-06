@@ -1,6 +1,6 @@
 ---
 name: "Cersea Soulstorm"
-streamer: "Cersea Soulstorm"
+streamer: "Issa Mine"
 agency: "ChromaSHIFT"
 faction: "civilian"
 status: "AT LARGE"

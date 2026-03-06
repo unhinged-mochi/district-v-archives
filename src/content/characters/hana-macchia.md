@@ -1,5 +1,5 @@
 ---
-name: "Hana Macchia"
+name: "Hannah Mackey"
 streamer: "Hana Macchia"
 agency: "NIJISANJI EN"
 faction: "burger-shot"

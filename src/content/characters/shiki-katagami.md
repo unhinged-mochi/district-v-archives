@@ -1,5 +1,5 @@
 ---
-name: "Shiki Katagami"
+name: "Hugh Wayman"
 streamer: "Shiki Katagami"
 agency: "First Stage Production"
 faction: "civilian"

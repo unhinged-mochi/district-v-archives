@@ -1,5 +1,5 @@
 ---
-name: "Ashkariel"
+name: "Carlisle Campbell"
 streamer: "Ashkariel"
 agency: "First Stage Production"
 faction: "civilian"
