@@ -1,5 +1,5 @@
 ---
-name: "Finana/ Dr. Feesh"
+name: "Dr. Finana"
 streamer: "Finana Ryugu"
 agency: "NIJISANJI EN"
 faction: "ems"

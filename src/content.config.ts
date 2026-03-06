@@ -35,6 +35,7 @@ const factions = defineCollection({
     leader: z.string(),
     type: z.string(),
     members: z.array(z.string()).default([]),
+    formerMembers: z.array(z.string()).default([]),
   }),
 });
 

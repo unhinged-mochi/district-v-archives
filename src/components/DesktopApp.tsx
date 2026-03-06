@@ -166,11 +166,17 @@ export default function DesktopApp({ characters, days, factions, relationships, 
         const leaderCh = characterMap.get(faction.leader);
         if (leaderCh) memberNames.unshift({ id: leaderCh.id, name: leaderCh.name });
       }
+      const formerMemberNames = (faction.formerMembers ?? [])
+        .map((mId) => {
+          const ch = characterMap.get(mId);
+          return ch ? { id: ch.id, name: ch.name } : null;
+        })
+        .filter(Boolean) as Array<{ id: string; name: string }>;
       addWindow({
         id: 'faction-' + id,
         title: 'LSPD // FACTIONS // ' + faction.name.toUpperCase(),
         type: 'faction',
-        content: { faction, memberNames },
+        content: { faction, memberNames, formerMemberNames },
       });
     },
     [factions, characterMap, addWindow]
@@ -449,6 +455,7 @@ export default function DesktopApp({ characters, days, factions, relationships, 
             <FactionView
               faction={win.content.faction}
               memberNames={win.content.memberNames}
+              formerMemberNames={win.content.formerMemberNames ?? []}
               onOpenCharacter={openCharacter}
             />
           )}

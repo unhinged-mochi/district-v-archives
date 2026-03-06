@@ -5,7 +5,7 @@ agency: "Independent"
 faction: "criminal"
 status: "AT LARGE"
 threatLevel: 6
-associates: ["elira-pendora", "yanderegg", "shu-yamino", "ricky"]
+associates: ["elira-pendora", "yanderegg", "shu-yamino", "ricky", "riikami"]
 ---
 
 32 fake identities. 85 warrants for his arrest for fraud, counterfeiting, and more. Banned from entering most of the country. In Los Santos, he offers his services as a fortune teller and spirit medium.
@@ -28,3 +28,4 @@ Known for stalking Kyle Byfire, kidnapping [Shu Yamino](dossier:shu-yamino), and
 - [Prince Atticus Foy](dossier:yanderegg) — friend
 - [Shu Yamino](dossier:shu-yamino) — friend
 - [Lucky Hand](dossier:ricky) — friend
+- [Old Man Stoic](dossier:riikami) — friend

@@ -5,10 +5,11 @@ import { useStaggerIn } from './useStaggerIn';
 interface FactionViewProps {
   faction: Faction;
   memberNames: Array<{ id: string; name: string }>;
+  formerMemberNames: Array<{ id: string; name: string }>;
   onOpenCharacter: (id: string) => void;
 }
 
-export default function FactionView({ faction, memberNames, onOpenCharacter }: FactionViewProps) {
+export default function FactionView({ faction, memberNames, formerMemberNames, onOpenCharacter }: FactionViewProps) {
   const containerRef = useStaggerIn();
 
   return (
@@ -77,6 +78,26 @@ export default function FactionView({ faction, memberNames, onOpenCharacter }: F
           )}
         </div>
       </div>
+
+      {/* Former Members */}
+      {formerMemberNames.length > 0 && (
+        <div className="mb-6">
+          <div className="border-b border-terminal-amber pb-1 mb-2 font-bold text-terminal-amber-dim">
+            FORMER MEMBERS ({formerMemberNames.length})
+          </div>
+          <div className="space-y-1">
+            {formerMemberNames.map((member) => (
+              <button
+                key={member.id}
+                className="block underline cursor-pointer hover:opacity-80 text-terminal-amber-dim"
+                onClick={() => onOpenCharacter(member.id)}
+              >
+                {'> ' + member.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Body */}
       <div className="mb-6">

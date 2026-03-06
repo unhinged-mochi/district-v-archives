@@ -38,6 +38,7 @@ export interface Faction {
   leader: string;
   type: string;
   members: string[];
+  formerMembers: string[];
   body: string;
 }
 
