@@ -19,22 +19,22 @@
   --color-status-safe: oklch(0.7 0.2 145);
   --color-status-info: oklch(0.65 0.15 245);
   --color-status-neutral: oklch(0.55 0 0);
-  --font-mono: 'JetBrains Mono', 'Geist Mono', 'Courier New', monospace;
+  --font-mono: "JetBrains Mono", "Geist Mono", "Courier New", monospace;
 }
 
 /* Import JetBrains Mono from Google Fonts via @import or link in layout */
 
 /* Base styles */
 body {
-  font-family: var(--font-mono);
-  background: var(--color-terminal-bg);
-  color: var(--color-terminal-amber);
-  overflow: hidden;
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
   margin: 0;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  color: var(--color-terminal-amber);
   cursor: default;
   user-select: none;
+  background: var(--color-terminal-bg);
 }
 
 /* Allow text selection in content areas */
@@ -46,8 +46,8 @@ body {
 .crt-scanlines {
   position: fixed;
   inset: 0;
-  pointer-events: none;
   z-index: 9999;
+  pointer-events: none;
   background: repeating-linear-gradient(
     0deg,
     transparent,
@@ -60,16 +60,20 @@ body {
   animation: scanline-scroll 8s linear infinite;
 }
 @keyframes scanline-scroll {
-  0% { background-position-y: 0; }
-  100% { background-position-y: 4px; }
+  0% {
+    background-position-y: 0;
+  }
+  100% {
+    background-position-y: 4px;
+  }
 }
 
 /* CRT screen curvature vignette */
 .crt-vignette {
   position: fixed;
   inset: 0;
-  pointer-events: none;
   z-index: 9998;
+  pointer-events: none;
   background: radial-gradient(
     ellipse at center,
     transparent 60%,
@@ -81,20 +85,28 @@ body {
 .glow-text {
   text-shadow:
     0 0 4px var(--color-terminal-amber-glow),
-    0 0 8px color-mix(in oklch, var(--color-terminal-amber-glow) 50%, transparent);
+    0 0 8px
+    color-mix(in oklch, var(--color-terminal-amber-glow) 50%, transparent);
 }
 
 /* Glow border */
 .glow-border {
   box-shadow:
     0 0 4px color-mix(in oklch, var(--color-terminal-amber) 40%, transparent),
-    inset 0 0 4px color-mix(in oklch, var(--color-terminal-amber) 20%, transparent);
+    inset 0 0 4px
+    color-mix(in oklch, var(--color-terminal-amber) 20%, transparent);
 }
 
 /* Blinking cursor */
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 .cursor-blink {
   animation: blink 1s step-end infinite;
@@ -102,12 +114,24 @@ body {
 
 /* Flicker effect for boot */
 @keyframes flicker {
-  0% { opacity: 0.97; }
-  5% { opacity: 0.8; }
-  10% { opacity: 0.95; }
-  15% { opacity: 0.9; }
-  20% { opacity: 0.98; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0.97;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 0.95;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  20% {
+    opacity: 0.98;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .crt-flicker {
   animation: flicker 0.3s ease-in-out;
@@ -129,7 +153,8 @@ body {
 :focus-visible {
   outline: 1px solid var(--color-terminal-amber);
   outline-offset: 2px;
-  box-shadow: 0 0 8px color-mix(in oklch, var(--color-terminal-amber-glow) 60%, transparent);
+  box-shadow: 0 0 8px
+    color-mix(in oklch, var(--color-terminal-amber-glow) 60%, transparent);
 }
 
 /* Remove default focus ring on mouse click */
@@ -144,52 +169,56 @@ body {
 }
 .desktop-icon:hover,
 .desktop-icon:focus-visible {
-  background: color-mix(in oklch, var(--color-terminal-amber) 15%, transparent);
-  box-shadow: 0 0 12px color-mix(in oklch, var(--color-terminal-amber) 25%, transparent);
   outline: none;
+  background: color-mix(in oklch, var(--color-terminal-amber) 15%, transparent);
+  box-shadow: 0 0 12px
+    color-mix(in oklch, var(--color-terminal-amber) 25%, transparent);
 }
 .desktop-icon:hover div {
   text-shadow:
     0 0 6px var(--color-terminal-amber-glow),
-    0 0 12px color-mix(in oklch, var(--color-terminal-amber-glow) 40%, transparent);
+    0 0 12px
+    color-mix(in oklch, var(--color-terminal-amber-glow) 40%, transparent);
 }
 .desktop-icon.selected {
-  background: color-mix(in oklch, var(--color-terminal-amber) 25%, transparent);
   outline: 1px solid var(--color-terminal-amber-dim);
+  background: color-mix(in oklch, var(--color-terminal-amber) 25%, transparent);
 }
 
 /* Window styles */
 .window {
-  border: 1px solid var(--color-terminal-amber);
   background: var(--color-terminal-bg);
+  border: 1px solid var(--color-terminal-amber);
   box-shadow:
     0 0 8px color-mix(in oklch, var(--color-terminal-amber) 30%, transparent),
     0 4px 24px rgba(0, 0, 0, 0.6);
 }
 
 .window-title {
-  background: var(--color-terminal-amber);
-  color: var(--color-terminal-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
   font-size: 0.75rem;
   font-weight: 700;
+  color: var(--color-terminal-bg);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 4px 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   touch-action: none;
+  background: var(--color-terminal-amber);
 }
 
 .window-title .close-btn {
-  cursor: pointer;
-  font-weight: 900;
   padding: 0 4px;
+  font-weight: 900;
+  cursor: pointer;
 }
 .window-title .close-btn:hover {
+  color: var(--color-status-danger);
+  text-shadow:
+    0 0 8px var(--color-status-danger),
+    0 0 16px color-mix(in oklch, var(--color-status-danger) 40%, transparent);
   background: var(--color-terminal-bg);
-  color: #ff4444;
-  text-shadow: 0 0 8px #ff4444, 0 0 16px rgba(255, 68, 68, 0.4);
 }
 
 /* Threat level bar */
@@ -206,34 +235,36 @@ body {
 /* VOD badge */
 .vod-badge {
   display: inline-flex;
-  align-items: center;
   gap: 4px;
+  align-items: center;
   padding: 2px 8px;
   font-size: 0.7rem;
-  border: 1px solid var(--color-terminal-amber-dim);
-  background: color-mix(in oklch, var(--color-terminal-amber) 10%, transparent);
   color: var(--color-terminal-amber);
   text-decoration: none;
   cursor: pointer;
+  background: color-mix(in oklch, var(--color-terminal-amber) 10%, transparent);
+  border: 1px solid var(--color-terminal-amber-dim);
   transition: all 0.15s ease;
 }
 .vod-badge:hover {
   background: color-mix(in oklch, var(--color-terminal-amber) 25%, transparent);
-  box-shadow: 0 0 6px color-mix(in oklch, var(--color-terminal-amber) 40%, transparent);
+  box-shadow: 0 0 6px
+    color-mix(in oklch, var(--color-terminal-amber) 40%, transparent);
   transform: scale(1.02);
 }
 
 /* File listing row */
 .file-row {
-  padding: 8px 12px;
-  min-height: 44px;
-  cursor: pointer;
   display: flex;
   gap: 12px;
   align-items: center;
-  font-size: 0.8rem;
+  min-height: 44px;
+  padding: 8px 12px;
   font-family: var(--font-mono);
-  border-bottom: 1px solid color-mix(in oklch, var(--color-terminal-amber) 10%, transparent);
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-bottom: 1px solid
+    color-mix(in oklch, var(--color-terminal-amber) 10%, transparent);
   border-left: 3px solid transparent;
   transition: all 0.15s ease;
 }
@@ -242,10 +273,10 @@ body {
   border-left-color: var(--color-terminal-amber);
 }
 .file-row:focus-visible {
-  background: color-mix(in oklch, var(--color-terminal-amber) 10%, transparent);
-  border-left-color: var(--color-terminal-amber);
   outline: 1px solid var(--color-terminal-amber);
   outline-offset: -1px;
+  background: color-mix(in oklch, var(--color-terminal-amber) 10%, transparent);
+  border-left-color: var(--color-terminal-amber);
 }
 .file-row:active {
   filter: invert(1);
@@ -255,82 +286,127 @@ body {
 /* Taskbar */
 .taskbar {
   position: fixed;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
+  z-index: 100;
+  display: flex;
+  gap: 4px;
+  align-items: center;
   height: 32px;
+  padding: 0 8px;
   background: var(--color-terminal-bg-light);
   border-top: 1px solid var(--color-terminal-amber);
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
-  gap: 4px;
-  z-index: 100;
 }
 
 .taskbar-item {
   padding: 2px 12px;
   font-size: 0.7rem;
+  color: var(--color-terminal-amber-dim);
   text-transform: uppercase;
   cursor: pointer;
   border: 1px solid transparent;
   border-bottom: 2px solid transparent;
-  color: var(--color-terminal-amber-dim);
   transition: all 0.15s ease;
 }
 .taskbar-item:hover,
 .taskbar-item:focus-visible {
+  outline: none;
   border-color: var(--color-terminal-amber-dim);
   border-bottom-color: var(--color-terminal-amber-dim);
-  outline: none;
 }
 .taskbar-item.active {
+  color: var(--color-terminal-amber);
+  text-shadow: 0 0 6px var(--color-terminal-amber-glow);
+  background: color-mix(in oklch, var(--color-terminal-amber) 10%, transparent);
   border-color: var(--color-terminal-amber);
   border-bottom-color: var(--color-terminal-amber);
-  color: var(--color-terminal-amber);
-  background: color-mix(in oklch, var(--color-terminal-amber) 10%, transparent);
-  text-shadow: 0 0 6px var(--color-terminal-amber-glow);
 }
 .taskbar-item.minimized {
   opacity: 0.4;
 }
 
 /* Faction color utilities */
-.faction-batchelors { color: var(--color-faction-batchelors); }
-.faction-police { color: var(--color-faction-police); }
-.faction-ems { color: var(--color-faction-ems); }
-.faction-unicorn { color: var(--color-faction-unicorn); }
-.faction-hospital { color: var(--color-faction-hospital); }
-.faction-civilian { color: var(--color-faction-civilian); }
+.faction-batchelors {
+  color: var(--color-faction-batchelors);
+}
+.faction-police {
+  color: var(--color-faction-police);
+}
+.faction-ems {
+  color: var(--color-faction-ems);
+}
+.faction-unicorn {
+  color: var(--color-faction-unicorn);
+}
+.faction-hospital {
+  color: var(--color-faction-hospital);
+}
+.faction-civilian {
+  color: var(--color-faction-civilian);
+}
 
-.faction-border-batchelors { border-left: 3px solid var(--color-faction-batchelors); }
-.faction-border-police { border-left: 3px solid var(--color-faction-police); }
-.faction-border-ems { border-left: 3px solid var(--color-faction-ems); }
-.faction-border-unicorn { border-left: 3px solid var(--color-faction-unicorn); }
-.faction-border-hospital { border-left: 3px solid var(--color-faction-hospital); }
-.faction-border-civilian { border-left: 3px solid var(--color-faction-civilian); }
+.faction-border-batchelors {
+  border-left: 3px solid var(--color-faction-batchelors);
+}
+.faction-border-police {
+  border-left: 3px solid var(--color-faction-police);
+}
+.faction-border-ems {
+  border-left: 3px solid var(--color-faction-ems);
+}
+.faction-border-unicorn {
+  border-left: 3px solid var(--color-faction-unicorn);
+}
+.faction-border-hospital {
+  border-left: 3px solid var(--color-faction-hospital);
+}
+.faction-border-civilian {
+  border-left: 3px solid var(--color-faction-civilian);
+}
 
 /* Grid background pattern */
 .grid-bg {
   background-image:
-    linear-gradient(color-mix(in oklch, var(--color-terminal-amber) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklch, var(--color-terminal-amber) 5%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      color-mix(in oklch, var(--color-terminal-amber) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--color-terminal-amber) 5%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 40px 40px;
 }
 
 /* Typing effect helper */
 @keyframes typewriter {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* Scanline burst — brief intensification on events */
 @keyframes scanline-burst {
-  0% { opacity: 1; }
-  15% { opacity: 0.6; }
-  30% { opacity: 1; }
-  50% { opacity: 0.85; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  30% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .scanline-burst {
   animation: scanline-burst 0.3s ease-out;
@@ -340,16 +416,27 @@ body {
 .crt-flicker-effect {
   position: fixed;
   inset: 0;
-  pointer-events: none;
   z-index: 9997;
+  pointer-events: none;
   animation: crt-subtle-flicker 6s ease-in-out infinite;
 }
 @keyframes crt-subtle-flicker {
-  0%, 100% { opacity: 0; }
-  25% { opacity: 0.02; }
-  50% { opacity: 0; }
-  75% { opacity: 0.03; }
-  87% { opacity: 0.01; }
+  0%,
+  100% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.02;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.03;
+  }
+  87% {
+    opacity: 0.01;
+  }
 }
 
 /* === Micro-interactions === */
@@ -358,29 +445,29 @@ body {
 
 /* Minimize button */
 .window-title .minimize-btn {
-  cursor: pointer;
-  font-weight: 900;
   padding: 0 4px;
+  font-weight: 900;
+  cursor: pointer;
 }
 .window-title .minimize-btn:hover {
-  background: var(--color-terminal-bg);
   color: var(--color-terminal-amber);
+  background: var(--color-terminal-bg);
 }
 
 /* Taskbar action buttons */
 .taskbar-action-btn {
+  padding: 2px 8px;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 700;
-  padding: 2px 8px;
   cursor: pointer;
-  border: 1px solid transparent;
   background: none;
+  border: 1px solid transparent;
   transition: all 0.15s ease;
 }
 .taskbar-action-btn:hover {
-  border-color: var(--color-terminal-amber-dim);
   text-shadow: 0 0 6px var(--color-terminal-amber-glow);
+  border-color: var(--color-terminal-amber-dim);
 }
 
 /* Desktop icons grid layout */
@@ -388,9 +475,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  width: 7rem;
   padding: 1rem;
   padding-top: 1.5rem;
-  width: 7rem;
 }
 
 /* === Mobile Responsiveness === */
@@ -399,14 +486,14 @@ body {
   .window-responsive {
     position: fixed !important;
     top: 32px !important;
-    left: 0 !important;
     right: 0 !important;
     bottom: 44px !important;
+    left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     min-height: unset !important;
-    border-left: none !important;
     border-right: none !important;
+    border-left: none !important;
   }
   .window-responsive .window-content {
     max-height: calc(100vh - 32px - 44px - 36px) !important;
@@ -416,9 +503,9 @@ body {
   .desktop-icons-grid {
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
     gap: 0.5rem;
+    justify-content: center;
+    width: 100%;
   }
 
   /* Taskbar: bigger touch targets */
@@ -427,11 +514,11 @@ body {
     padding: 0 4px;
   }
   .taskbar-item {
-    padding: 8px 12px;
-    font-size: 0.65rem;
-    min-height: 44px;
     display: flex;
     align-items: center;
+    min-height: 44px;
+    padding: 8px 12px;
+    font-size: 0.65rem;
   }
   .taskbar-action-btn {
     min-height: 44px;

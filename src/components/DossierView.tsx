@@ -1,58 +1,74 @@
-import type { Character } from '../types';
-import { parseBody } from './parseBody';
-import { useStaggerIn } from './useStaggerIn';
+import { useMemo } from "react";
+import type { Character } from "../types";
+import { parseBody } from "./parseBody";
+import { useStaggerIn } from "./useStaggerIn";
 
 interface DossierViewProps {
-  character: Character;
   allCharacters?: Character[];
+  character: Character;
   onOpenCharacter: (id: string) => void;
 }
 
-function getStatusColor(status: Character['status']): string {
+function getStatusColor(status: Character["status"]): string {
   switch (status) {
-    case 'AT LARGE':
-      return 'var(--color-status-danger)';
-    case 'IN CUSTODY':
-      return 'var(--color-status-warning)';
-    case 'DECEASED':
-      return 'var(--color-status-neutral)';
-    case 'ACTIVE DUTY':
-      return 'var(--color-status-safe)';
-    case 'DISCHARGED':
-      return 'var(--color-status-warning)';
-    case 'EMPLOYED':
-      return 'var(--color-status-info)';
+    case "AT LARGE":
+      return "var(--color-status-danger)";
+    case "IN CUSTODY":
+      return "var(--color-status-warning)";
+    case "DECEASED":
+      return "var(--color-status-neutral)";
+    case "ACTIVE DUTY":
+      return "var(--color-status-safe)";
+    case "DISCHARGED":
+      return "var(--color-status-warning)";
+    case "EMPLOYED":
+      return "var(--color-status-info)";
     default:
-      return 'var(--color-terminal-amber)';
+      return "var(--color-terminal-amber)";
   }
 }
 
 function getThreatColor(level: number): string {
-  if (level <= 3) return 'var(--color-status-safe)';
-  if (level <= 6) return 'var(--color-status-warning)';
-  return 'var(--color-status-danger)';
+  if (level <= 3) {
+    return "var(--color-status-safe)";
+  }
+  if (level <= 6) {
+    return "var(--color-status-warning)";
+  }
+  return "var(--color-status-danger)";
 }
 
-export default function DossierView({ character, allCharacters = [], onOpenCharacter }: DossierViewProps) {
+export default function DossierView({
+  character,
+  allCharacters = [],
+  onOpenCharacter,
+}: DossierViewProps) {
   const containerRef = useStaggerIn();
+  const allCharactersMap = useMemo(
+    () => new Map(allCharacters.map((c) => [c.id, c])),
+    [allCharacters]
+  );
 
   return (
-    <div ref={containerRef} className="font-mono text-sm text-terminal-amber">
+    <div className="font-mono text-sm text-terminal-amber" ref={containerRef}>
       {/* Top section: mugshot + metadata */}
-      <div className="flex gap-6 mb-6">
+      <div className="mb-6 flex gap-6">
         {/* Mugshot */}
         <div
-          className="w-32 h-40 flex items-center justify-center border border-terminal-amber shrink-0"
-          style={{ backgroundColor: 'color-mix(in oklch, var(--color-terminal-amber) 5%, transparent)' }}
+          className="flex h-40 w-32 shrink-0 items-center justify-center border border-terminal-amber"
+          style={{
+            backgroundColor:
+              "color-mix(in oklch, var(--color-terminal-amber) 5%, transparent)",
+          }}
         >
           {character.mugshot ? (
             <img
-              src={character.mugshot}
               alt={character.name}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
+              src={character.mugshot}
             />
           ) : (
-            <span className="text-xs text-terminal-amber-dim">NO PHOTO</span>
+            <span className="text-terminal-amber-dim text-xs">NO PHOTO</span>
           )}
         </div>
 
@@ -66,10 +82,10 @@ export default function DossierView({ character, allCharacters = [], onOpenChara
             <span className="text-terminal-amber-dim">STREAMER: </span>
             {character.youtube || character.twitch ? (
               <a
-                href={character.youtube ?? character.twitch}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="underline hover:opacity-80"
+                href={character.youtube ?? character.twitch}
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 {character.streamer}
               </a>
@@ -83,11 +99,18 @@ export default function DossierView({ character, allCharacters = [], onOpenChara
           </div>
           <div>
             <span className="text-terminal-amber-dim">FACTION: </span>
-            <span className="uppercase">{character.faction.replace(/-/g, ' ')}</span>
+            <span className="uppercase">
+              {character.faction.replace(/-/g, " ")}
+            </span>
           </div>
           <div>
             <span className="text-terminal-amber-dim">STATUS: </span>
-            <span style={{ color: getStatusColor(character.status), fontWeight: 'bold' }}>
+            <span
+              style={{
+                color: getStatusColor(character.status),
+                fontWeight: "bold",
+              }}
+            >
               {character.status}
             </span>
           </div>
@@ -110,20 +133,19 @@ export default function DossierView({ character, allCharacters = [], onOpenChara
       {/* Known Associates */}
       {character.associates.length > 0 && (
         <div className="mb-6">
-          <div
-            className="border-b border-terminal-amber pb-1 mb-2 font-bold"
-          >
+          <div className="mb-2 border-terminal-amber border-b pb-1 font-bold">
             KNOWN ASSOCIATES
           </div>
           <div className="flex flex-wrap gap-2">
             {character.associates.map((assocId) => {
-              const assoc = allCharacters.find((c) => c.id === assocId);
+              const assoc = allCharactersMap.get(assocId);
               const displayName = assoc ? assoc.name : assocId;
               return (
                 <button
+                  className="cursor-pointer text-terminal-amber underline hover:opacity-80"
                   key={assocId}
-                  className="underline cursor-pointer hover:opacity-80 text-terminal-amber"
                   onClick={() => onOpenCharacter(assocId)}
+                  type="button"
                 >
                   {displayName}
                 </button>
@@ -135,18 +157,17 @@ export default function DossierView({ character, allCharacters = [], onOpenChara
 
       {/* Case Notes */}
       <div className="mb-6">
-        <div
-          className="border-b border-terminal-amber pb-1 mb-2 font-bold"
-        >
+        <div className="mb-2 border-terminal-amber border-b pb-1 font-bold">
           CASE NOTES
         </div>
-        <div className="whitespace-pre-wrap leading-relaxed">{parseBody(character.body, { onOpenCharacter })}</div>
+        <div className="whitespace-pre-wrap leading-relaxed">
+          {parseBody(character.body, { onOpenCharacter })}
+        </div>
       </div>
 
       {/* Footer */}
-      <div
-        className="border-t border-terminal-amber pt-2 text-xs text-terminal-amber-dim text-center"
-      >
+      <div className="border-terminal-amber border-t pt-2 text-center text-terminal-amber-dim text-xs">
+        {/* biome-ignore lint/suspicious/noCommentText: intentional terminal UI text */}
         LSPD FILE // CLASSIFIED // DO NOT DISTRIBUTE
       </div>
     </div>

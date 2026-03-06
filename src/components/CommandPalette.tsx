@@ -1,30 +1,38 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
-import type { Character, Day, Faction } from '../types';
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { Character, Day, Faction } from "../types";
 
 const PLACEHOLDERS = [
-  'SEARCH FILES, DOSSIERS, FACTIONS...',
-  'QUERY LSPD DATABASE...',
-  'ENTER SUSPECT NAME OR CASE NUMBER...',
-  'SEARCH CLASSIFIED RECORDS...',
-  'ACCESS INTELLIGENCE FILES...',
+  "SEARCH FILES, DOSSIERS, FACTIONS...",
+  "QUERY LSPD DATABASE...",
+  "ENTER SUSPECT NAME OR CASE NUMBER...",
+  "SEARCH CLASSIFIED RECORDS...",
+  "ACCESS INTELLIGENCE FILES...",
 ];
 
 interface CommandPaletteProps {
   characters: Character[];
   days: Day[];
   factions: Faction[];
+  onClose: () => void;
   onOpenCharacter: (id: string) => void;
   onOpenDay: (id: string) => void;
   onOpenFaction: (id: string) => void;
-  onClose: () => void;
 }
 
 interface SearchItem {
+  category:
+    | "SUSPECT"
+    | "OFFICER"
+    | "MEDIC"
+    | "LEGAL"
+    | "CIVILIAN"
+    | "EMPLOYEE"
+    | "CASE FILE"
+    | "FACTION";
+  handler: () => void;
   id: string;
   label: string;
   searchKey: string;
-  category: 'SUSPECT' | 'OFFICER' | 'MEDIC' | 'LEGAL' | 'CIVILIAN' | 'EMPLOYEE' | 'CASE FILE' | 'FACTION';
-  handler: () => void;
 }
 
 /**
@@ -42,7 +50,9 @@ function fuzzyScore(query: string, target: string): number | null {
 
   // Exact substring wins outright
   const exactIdx = t.indexOf(q);
-  if (exactIdx !== -1) return -10000 + exactIdx;
+  if (exactIdx !== -1) {
+    return -10_000 + exactIdx;
+  }
 
   // Fuzzy: every char in query must appear in order in target
   let score = 0;
@@ -66,20 +76,22 @@ function fuzzyScore(query: string, target: string): number | null {
     ti++;
   }
 
-  if (qi < q.length) return null; // not all query chars found
+  if (qi < q.length) {
+    return null; // not all query chars found
+  }
   return score;
 }
 
-const FACTION_CATEGORY: Record<string, SearchItem['category']> = {
-  'police': 'OFFICER',
-  'ems': 'MEDIC',
-  'doj': 'LEGAL',
-  'civilian': 'CIVILIAN',
-  'burger-shot': 'EMPLOYEE',
-  'mechanic-shop': 'EMPLOYEE',
-  'hospital': 'EMPLOYEE',
-  'vanilla-unicorn': 'EMPLOYEE',
-  'uwu-cafe': 'EMPLOYEE',
+const FACTION_CATEGORY: Record<string, SearchItem["category"]> = {
+  police: "OFFICER",
+  ems: "MEDIC",
+  doj: "LEGAL",
+  civilian: "CIVILIAN",
+  "burger-shot": "EMPLOYEE",
+  "mechanic-shop": "EMPLOYEE",
+  hospital: "EMPLOYEE",
+  "vanilla-unicorn": "EMPLOYEE",
+  "uwu-cafe": "EMPLOYEE",
 };
 
 export default function CommandPalette({
@@ -91,54 +103,50 @@ export default function CommandPalette({
   onOpenFaction,
   onClose,
 }: CommandPaletteProps) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const [placeholder] = useState(() => PLACEHOLDERS[Math.floor(Math.random() * PLACEHOLDERS.length)]);
+  const [placeholder] = useState(
+    () => PLACEHOLDERS[Math.floor(Math.random() * PLACEHOLDERS.length)]
+  );
 
   // Build flat search index
   const searchItems = useMemo<SearchItem[]>(() => {
-    const items: SearchItem[] = [];
-
-    characters.forEach((c) => {
-      items.push({
+    const items = [
+      ...characters.map((c) => ({
         id: c.id,
         label: c.name,
-        searchKey: c.name + ' ' + c.streamer,
-        category: FACTION_CATEGORY[c.faction] || 'SUSPECT',
+        searchKey: `${c.name} ${c.streamer}`,
+        category: FACTION_CATEGORY[c.faction] || "SUSPECT",
         handler: () => onOpenCharacter(c.id),
-      });
-    });
-
-    days.forEach((d) => {
-      const label = `Day ${d.day} - ${d.title}`;
-      items.push({
-        id: d.id,
-        label,
-        searchKey: label,
-        category: 'CASE FILE',
-        handler: () => onOpenDay(d.id),
-      });
-    });
-
-    factions.forEach((f) => {
-      items.push({
+      })),
+      ...days.map((d) => {
+        const label = `Day ${d.day} - ${d.title}`;
+        return {
+          id: d.id,
+          label,
+          searchKey: label,
+          category: "CASE FILE",
+          handler: () => onOpenDay(d.id),
+        };
+      }),
+      ...factions.map((f) => ({
         id: f.id,
         label: f.name,
         searchKey: f.name,
-        category: 'FACTION',
+        category: "FACTION",
         handler: () => onOpenFaction(f.id),
-      });
-    });
-
-    items.sort((a, b) => a.label.localeCompare(b.label));
-    return items;
+      })),
+    ];
+    return items.sort((a, b) => a.label.localeCompare(b.label));
   }, [characters, days, factions, onOpenCharacter, onOpenDay, onOpenFaction]);
 
   // Filter and rank results
   const results = useMemo(() => {
-    if (!query.trim()) return searchItems;
+    if (!query.trim()) {
+      return searchItems;
+    }
     return searchItems
       .map((item) => ({ item, score: fuzzyScore(query, item.searchKey) }))
       .filter(({ score }) => score !== null)
@@ -159,113 +167,116 @@ export default function CommandPalette({
   // Scroll selected item into view
   useEffect(() => {
     const list = listRef.current;
-    if (!list) return;
+    if (!list) {
+      return;
+    }
     const selectedEl = list.children[selectedIndex] as HTMLElement;
     if (selectedEl) {
-      selectedEl.scrollIntoView({ block: 'nearest' });
+      selectedEl.scrollIntoView({ block: "nearest" });
     }
   }, [selectedIndex]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
         setSelectedIndex((prev) => (prev + 1) % results.length);
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
-        setSelectedIndex((prev) => (prev - 1 + results.length) % results.length);
+        setSelectedIndex(
+          (prev) => (prev - 1 + results.length) % results.length
+        );
         break;
-      case 'Enter':
+      case "Enter":
         e.preventDefault();
         if (results[selectedIndex]) {
           results[selectedIndex].handler();
           onClose();
         }
         break;
-      case 'Escape':
+      case "Escape":
         e.preventDefault();
         onClose();
         break;
     }
   };
 
-  const getCategoryColor = (category: SearchItem['category']) => {
+  const getCategoryColor = (category: SearchItem["category"]) => {
     switch (category) {
-      case 'SUSPECT': return 'var(--color-status-danger)';
-      case 'OFFICER': return 'var(--color-faction-police)';
-      case 'MEDIC': return 'var(--color-faction-ems)';
-      case 'LEGAL': return 'var(--color-status-info)';
-      case 'CIVILIAN': return 'var(--color-status-neutral)';
-      case 'EMPLOYEE': return 'var(--color-status-warning)';
-      case 'CASE FILE': return 'var(--color-status-info)';
-      case 'FACTION': return 'var(--color-status-safe)';
+      case "SUSPECT":
+        return "var(--color-status-danger)";
+      case "OFFICER":
+        return "var(--color-faction-police)";
+      case "MEDIC":
+        return "var(--color-faction-ems)";
+      case "LEGAL":
+        return "var(--color-status-info)";
+      case "CIVILIAN":
+        return "var(--color-status-neutral)";
+      case "EMPLOYEE":
+        return "var(--color-status-warning)";
+      case "CASE FILE":
+        return "var(--color-status-info)";
+      case "FACTION":
+        return "var(--color-status-safe)";
     }
   };
 
   return (
     <div
       className="fixed inset-0 z-[9000] flex items-start justify-center pt-[15vh]"
-      style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
       onClick={onClose}
+      style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
     >
       <div
-        className="w-full max-w-lg mx-4 font-mono"
+        className="mx-4 w-full max-w-lg font-mono"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
       >
         {/* Search input */}
-        <div
-          className="border-2 border-terminal-amber bg-terminal-bg flex items-center px-3"
-        >
-          <span className="text-sm mr-2 text-terminal-amber-dim">
-            {'>'}
-          </span>
+        <div className="flex items-center border-2 border-terminal-amber bg-terminal-bg px-3">
+          <span className="mr-2 text-sm text-terminal-amber-dim">{">"}</span>
           <input
+            className="w-full bg-transparent py-3 text-sm text-terminal-amber caret-terminal-amber outline-none"
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={placeholder}
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder={placeholder}
-            className="w-full py-3 text-sm bg-transparent outline-none text-terminal-amber caret-terminal-amber"
           />
-          <span
-            className="text-xs text-terminal-amber-dim shrink-0"
-          >
-            ESC
-          </span>
+          <span className="shrink-0 text-terminal-amber-dim text-xs">ESC</span>
         </div>
 
         {/* Results list */}
         <div
+          className="max-h-[50vh] overflow-y-auto border border-terminal-amber border-t-0 bg-terminal-bg"
           ref={listRef}
-          className="border border-t-0 border-terminal-amber bg-terminal-bg max-h-[50vh] overflow-y-auto"
         >
           {results.length === 0 ? (
-            <div
-              className="px-4 py-3 text-sm text-terminal-amber-dim"
-            >
+            <div className="px-4 py-3 text-sm text-terminal-amber-dim">
               NO RESULTS FOUND
             </div>
           ) : (
             results.map((item, i) => (
-              <div
+              <button
+                className="flex w-full cursor-pointer items-center gap-3 border-none bg-transparent px-4 py-2 text-left text-sm text-terminal-amber"
                 key={item.id + item.category}
-                className="px-4 py-2 text-sm cursor-pointer flex items-center gap-3 text-terminal-amber"
-                style={{
-                  backgroundColor:
-                    i === selectedIndex
-                      ? 'color-mix(in oklch, var(--color-terminal-amber) 15%, transparent)'
-                      : 'transparent',
-                }}
                 onClick={() => {
                   item.handler();
                   onClose();
                 }}
                 onMouseEnter={() => setSelectedIndex(i)}
+                style={{
+                  backgroundColor:
+                    i === selectedIndex
+                      ? "color-mix(in oklch, var(--color-terminal-amber) 15%, transparent)"
+                      : "transparent",
+                }}
+                type="button"
               >
                 <span
-                  className="text-[10px] px-1.5 py-0.5 border shrink-0"
+                  className="shrink-0 border px-1.5 py-0.5 text-[10px]"
                   style={{
                     color: getCategoryColor(item.category),
                     borderColor: getCategoryColor(item.category),
@@ -274,15 +285,13 @@ export default function CommandPalette({
                   {item.category}
                 </span>
                 <span className="truncate">{item.label}</span>
-              </div>
+              </button>
             ))
           )}
         </div>
 
         {/* Footer hint */}
-        <div
-          className="text-[10px] mt-1 text-terminal-amber-dim flex justify-between px-1"
-        >
+        <div className="mt-1 flex justify-between px-1 text-[10px] text-terminal-amber-dim">
           <span>{results.length} RECORD(S) FOUND</span>
           <span>↑↓ NAVIGATE / ENTER SELECT / ESC CLOSE</span>
         </div>
