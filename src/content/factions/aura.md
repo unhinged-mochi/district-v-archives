@@ -8,4 +8,4 @@ members: ["ao-wuwu", "byeolyuna_", "dk-graves", "elly", "jelly", "jun-akane", "l
 formerMembers: ["hachi"]
 ---
 
-Aura is one of the three official criminal gangs operating in Los Santos during District V.
+One of three official criminal gangs in Los Santos during District V.

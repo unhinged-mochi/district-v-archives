@@ -7,7 +7,7 @@ type: "Entertainment"
 members: ["abaddon","banzoin-hakka","bluebell","elia-stellaria","harmony-kyrus","hazumi","juna-unagi","keiseira","kohaku","lan-philia","moka-anon","ryzar-blazenfang","taiga-chama","triggerphish","vain"]
 ---
 
-The Vanilla Unicorn is a host club (not a strip club, though there's still a stripper pole) operating in Los Santos. Co-owned by [Neil Downe](dossier:taiga-chama) and [To Night](dossier:lan-philia), it serves as a social hub for the city's residents.
+The Vanilla Unicorn is a host club (not a strip club, though there is still a stripper pole). Co-owned by [Neil Downe](dossier:taiga-chama) and [To Night](dossier:lan-philia).
 
 ## Services
 - Host entertainment

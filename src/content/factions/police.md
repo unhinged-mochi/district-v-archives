@@ -8,7 +8,7 @@ members: ["azeria","bee","claude-clawmark","crimzon-ruze","croc","elveira","envi
 formerMembers: ["elia-stellaria","taiga-chama"]
 ---
 
-The LSPD is responsible for maintaining law and order in Los Santos. Led by Chief [Solomon Serpico](dossier:vox-akuma), with [Wayne Kerr](dossier:taiga-chama) serving as interim chief, the department faces an uphill battle against rising criminal activity, particularly from the El Batchelors.
+The LSPD keeps order in Los Santos. Led by Chief [Solomon Serpico](dossier:vox-akuma), who succeeded interim chief [Wayne Kerr](dossier:taiga-chama). Criminal activity — especially from the El Batchelors — has kept the department busy.
 
 ## Divisions
 - Patrol Division

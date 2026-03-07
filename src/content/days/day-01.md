@@ -5,18 +5,18 @@ title: "First Day - City Opens"
 ---
 
 ## 08:00 - Server Initialization
-The city of Los Santos opens its doors. Officers are deployed to patrol routes. Citizens begin arriving.
+Los Santos opens. Officers take their routes. Citizens filter in.
 
 ## 09:30 - LSPD Deployment
-Chief Solomon Serpico establishes police presence across the city.
+Chief Solomon Serpico deploys officers across the city.
 [> 0:30:00 Vox Akuma POV](https://youtube.com/watch?v=placeholder&t=1800)
 
 ## 11:00 - El Batchelors' First Job
-The El Batchelors attempt their very first robbery -- trying to mug a hobo for $3. It doesn't go well.
+The El Batchelors attempt their very first robbery: mugging a hobo for $3. It doesn't go well.
 [> 1:00:00 Luca POV](https://youtube.com/watch?v=placeholder&t=3600)
 
 ## 14:00 - Vanilla Unicorn Grand Opening
-The Vanilla Unicorn host club opens for business under new management.
+The Vanilla Unicorn host club opens under new management.
 
 ## 16:30 - First Arrests
-LSPD makes its first arrests of the day as criminal activity begins to pick up.
+LSPD makes its first arrests as criminal activity picks up.

@@ -5,10 +5,10 @@ title: "Rising Tensions"
 ---
 
 ## 08:00 - Morning Patrol
-LSPD conducts routine patrols. The city feels tense after Day 1's criminal activity.
+LSPD conducts routine patrols. Residual tension from Day 1 keeps the streets quiet, for now.
 
 ## 10:00 - El Batchelors Level Up
-The El Batchelors begin planning more ambitious heists, having learned from their failed $3 robbery.
+The El Batchelors start planning more ambitious heists after the failed $3 mugging.
 [> 1:00:00 Luca POV](https://youtube.com/watch?v=placeholder&t=3600)
 
 ## 13:00 - Hospital Chaos

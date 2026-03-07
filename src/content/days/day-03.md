@@ -5,10 +5,10 @@ title: "The Animal Mask Mafia"
 ---
 
 ## 08:00 - New Day, New Crimes
-El Batchelors adopt animal masks for their operations, earning the nickname "Animal Mask Mafia."
+El Batchelors adopt animal masks. The city starts calling them the "Animal Mask Mafia."
 
 ## 11:00 - Bank Heist
-A coordinated Fleeca Bank robbery shakes the city.
+El Batchelors hit the Fleeca Bank.
 [> 2:00:00 Luca POV](https://youtube.com/watch?v=placeholder&t=7200)
 
 ## 14:00 - Gun License Drama
