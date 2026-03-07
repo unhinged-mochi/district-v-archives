@@ -1,7 +1,7 @@
 ---
 name: "Louise Cielo"
 streamer: "Derem Kado"
-agency: "NIJISANJI EN"
+agency: "NIJISANJI EX-ID"
 faction: "civilian"
 status: "AT LARGE"
 threatLevel: 1

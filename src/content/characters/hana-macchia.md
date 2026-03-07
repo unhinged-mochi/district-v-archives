@@ -1,7 +1,7 @@
 ---
 name: "Hannah Mackey"
 streamer: "Hana Macchia"
-agency: "NIJISANJI EN"
+agency: "NIJISANJI EX-ID"
 faction: "burger-shot"
 status: "AT LARGE"
 threatLevel: 1
