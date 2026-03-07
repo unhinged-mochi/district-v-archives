@@ -261,12 +261,7 @@ export default function DesktopApp({
         case "case-files": {
           const items = days.map((d) => ({
             id: d.id,
-            label:
-              "DAY_" +
-              String(d.day).padStart(2, "0") +
-              "_" +
-              d.title.toUpperCase().replace(/\s+/g, "_") +
-              ".log",
+            label: "DAY_" + String(d.day).padStart(2, "0") + ".log",
             type: "file" as const,
             meta: d.date,
           }));
