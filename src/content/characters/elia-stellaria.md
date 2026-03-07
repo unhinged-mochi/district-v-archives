@@ -1,5 +1,5 @@
 ---
-name: "Misty Meanors"
+name: "Liv Long"
 streamer: "Elia Stellaria"
 agency: "Independent"
 faction: "vanilla-unicorn"
