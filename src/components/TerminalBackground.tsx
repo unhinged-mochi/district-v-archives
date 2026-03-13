@@ -1,46 +1,61 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 import {
-  WebGLRenderer,
-  Scene,
-  PerspectiveCamera,
-  BufferGeometry,
   BufferAttribute,
-  ShaderMaterial,
-  Points,
+  BufferGeometry,
   Color,
-} from 'three';
+  PerspectiveCamera,
+  Points,
+  Scene,
+  ShaderMaterial,
+  WebGLRenderer,
+} from "three";
 
 interface TerminalBackgroundProps {
   enabled?: boolean;
 }
 
 const PARTICLE_COUNT = 300;
-const AMBER_COLOR = 0xffb000;
+const AMBER_COLOR = 0xff_b0_00;
 
-export default function TerminalBackground({ enabled = true }: TerminalBackgroundProps) {
+export default function TerminalBackground({
+  enabled = true,
+}: TerminalBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animFrameRef = useRef<number>(0);
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) {
+      return;
+    }
 
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     const renderer = new WebGLRenderer({
       canvas,
       alpha: true,
       antialias: false,
-      powerPreference: 'low-power',
+      powerPreference: "low-power",
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const scene = new Scene();
-    const camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
     camera.position.z = 50;
 
     // Create particle geometry — positions are initial/seed values only
@@ -49,17 +64,17 @@ export default function TerminalBackground({ enabled = true }: TerminalBackgroun
     const seeds = new Float32Array(PARTICLE_COUNT);
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 100;     // x
+      positions[i * 3] = (Math.random() - 0.5) * 100; // x
       positions[i * 3 + 1] = (Math.random() - 0.5) * 100; // y
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 50;  // z
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 50; // z
       opacities[i] = Math.random() * 0.5 + 0.1;
       seeds[i] = Math.random(); // unique per-particle seed for variation
     }
 
     const geometry = new BufferGeometry();
-    geometry.setAttribute('position', new BufferAttribute(positions, 3));
-    geometry.setAttribute('alpha', new BufferAttribute(opacities, 1));
-    geometry.setAttribute('seed', new BufferAttribute(seeds, 1));
+    geometry.setAttribute("position", new BufferAttribute(positions, 3));
+    geometry.setAttribute("alpha", new BufferAttribute(opacities, 1));
+    geometry.setAttribute("seed", new BufferAttribute(seeds, 1));
 
     // All drift logic happens on the GPU — no per-frame JS loops
     const material = new ShaderMaterial({
@@ -127,44 +142,50 @@ export default function TerminalBackground({ enabled = true }: TerminalBackgroun
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Hide canvas on WebGL context loss to prevent opaque black overlay
     const handleContextLost = (e: Event) => {
       e.preventDefault();
       cancelAnimationFrame(animFrameRef.current);
-      if (canvas) canvas.style.visibility = 'hidden';
+      if (canvas) {
+        canvas.style.visibility = "hidden";
+      }
     };
     const handleContextRestored = () => {
       cancelAnimationFrame(animFrameRef.current);
-      if (canvas) canvas.style.visibility = 'visible';
+      if (canvas) {
+        canvas.style.visibility = "visible";
+      }
       animate();
     };
-    canvas.addEventListener('webglcontextlost', handleContextLost);
-    canvas.addEventListener('webglcontextrestored', handleContextRestored);
+    canvas.addEventListener("webglcontextlost", handleContextLost);
+    canvas.addEventListener("webglcontextrestored", handleContextRestored);
 
     return () => {
       cancelAnimationFrame(animFrameRef.current);
-      window.removeEventListener('resize', handleResize);
-      canvas.removeEventListener('webglcontextlost', handleContextLost);
-      canvas.removeEventListener('webglcontextrestored', handleContextRestored);
+      window.removeEventListener("resize", handleResize);
+      canvas.removeEventListener("webglcontextlost", handleContextLost);
+      canvas.removeEventListener("webglcontextrestored", handleContextRestored);
       geometry.dispose();
       material.dispose();
       renderer.dispose();
     };
   }, [enabled]);
 
-  if (!enabled) return null;
+  if (!enabled) {
+    return null;
+  }
 
   return (
     <canvas
       ref={canvasRef}
       style={{
-        position: 'absolute',
+        position: "absolute",
         inset: 0,
         zIndex: 0,
-        pointerEvents: 'none',
-        background: 'transparent',
+        pointerEvents: "none",
+        background: "transparent",
       }}
     />
   );

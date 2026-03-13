@@ -1,18 +1,21 @@
-import type { Day } from '../types';
-import { parseBody } from './parseBody';
-import { useStaggerIn } from './useStaggerIn';
+import type { Day } from "../types";
+import { parseBody } from "./parseBody";
+import { useStaggerIn } from "./useStaggerIn";
 
 interface CaseFileViewProps {
   day: Day;
   onOpenCharacter?: (id: string) => void;
 }
 
-export default function CaseFileView({ day, onOpenCharacter }: CaseFileViewProps) {
+export default function CaseFileView({
+  day,
+  onOpenCharacter,
+}: CaseFileViewProps) {
   const containerRef = useStaggerIn();
-  const caseNumber = 'DV-2026-0221-D' + String(day.day).padStart(2, '0');
+  const caseNumber = `DV-2026-0221-D${String(day.day).padStart(2, "0")}`;
 
   return (
-    <div ref={containerRef} className="font-mono text-sm text-terminal-amber">
+    <div className="font-mono text-sm text-terminal-amber" ref={containerRef}>
       {/* Header */}
       <div className="mb-4 text-center">
         <div className="font-bold">LOS SANTOS POLICE DEPARTMENT</div>
@@ -35,12 +38,13 @@ export default function CaseFileView({ day, onOpenCharacter }: CaseFileViewProps
       </div>
 
       {/* Body */}
-      <div className="mb-6">{parseBody(day.body, { headingStyle: 'casefile', onOpenCharacter })}</div>
+      <div className="mb-6">
+        {parseBody(day.body, { headingStyle: "casefile", onOpenCharacter })}
+      </div>
 
       {/* Footer */}
-      <div
-        className="border-t border-terminal-amber pt-2 text-xs text-terminal-amber-dim text-center"
-      >
+      <div className="border-terminal-amber border-t pt-2 text-center text-terminal-amber-dim text-xs">
+        {/* biome-ignore lint/suspicious/noCommentText: intentional terminal UI text */}
         END OF REPORT // CASE #{caseNumber} // LSPD INTERNAL USE ONLY
       </div>
     </div>

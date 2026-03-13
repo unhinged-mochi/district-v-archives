@@ -1,0 +1,46 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/astro"
+  ],
+  "linter": {
+    "rules": {
+      "style": {
+        // React/Astro components use PascalCase filenames by convention
+        "useFilenamingConvention": "off",
+        // Intentional exhaustive switches without defaults are valid
+        "useDefaultSwitchClause": "off",
+        // D3 force simulation guarantees x/y after tick — non-null assertions are required
+        "noNonNullAssertion": "off"
+      },
+      "correctness": {
+        // Images sized via CSS (Tailwind h-full/w-full) don't need explicit width/height
+        "useImageSize": "off"
+      },
+      "complexity": {
+        // Complex rendering functions are acceptable in this UI-heavy codebase
+        "noExcessiveCognitiveComplexity": "off",
+        // D3 simulations use forEach for imperative node/link mutations
+        "noForEach": "off"
+      },
+      "suspicious": {
+        // Regex iteration pattern (while match = ...) is idiomatic JS
+        "noAssignInExpressions": "off",
+        // Static arrays (Boot sequence lines, icon lists) use index keys safely
+        "noArrayIndexKey": "off"
+      },
+      "a11y": {
+        // Modal backdrop divs with onClick are a standard React pattern; keyboard handled via document listeners
+        "noStaticElementInteractions": "off",
+        "noNoninteractiveElementInteractions": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "performance": {
+        // D3 namespace import (import * as d3) is the conventional D3 usage
+        "noNamespaceImport": "off"
+      }
+    }
+  }
+}

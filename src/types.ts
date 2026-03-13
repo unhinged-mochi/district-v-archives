@@ -1,61 +1,68 @@
 export interface Character {
-  id: string;
-  name: string;
-  streamer: string;
   agency: string;
-  faction: string;
-  status: 'AT LARGE' | 'IN CUSTODY' | 'DECEASED' | 'ACTIVE DUTY' | 'DISCHARGED' | 'EMPLOYED';
-  threatLevel: number;
-  mugshot?: string;
-  youtube?: string;
-  twitch?: string;
   associates: string[];
   body: string;
+  faction: string;
+  id: string;
+  mugshot?: string;
+  name: string;
+  status:
+    | "AT LARGE"
+    | "IN CUSTODY"
+    | "DECEASED"
+    | "ACTIVE DUTY"
+    | "DISCHARGED"
+    | "EMPLOYED";
+  streamer: string;
+  threatLevel: number;
+  twitch?: string;
+  youtube?: string;
 }
 
 export interface Sighting {
-  id: string;
-  title: string;
-  url: string;
   author?: string;
   characters: string[];
   date?: string;
+  id: string;
+  title: string;
+  url: string;
 }
 
 export interface Day {
-  id: string;
-  day: number;
-  date: string;
-  title: string;
   body: string;
+  date: string;
+  day: number;
+  id: string;
+  title: string;
 }
 
 export interface Faction {
-  id: string;
-  name: string;
+  body: string;
   color: string;
   colorClass: string;
-  leader: string;
-  type: string;
-  members: string[];
   formerMembers: string[];
-  body: string;
+  id: string;
+  leader: string;
+  members: string[];
+  name: string;
+  type: string;
 }
 
 export interface Relationship {
   from: string;
-  to: string;
-  type: 'ally' | 'enemy' | 'neutral';
   label: string;
+  to: string;
+  type: "ally" | "enemy" | "neutral";
 }
 
 export interface WindowData {
-  id: string;
-  title: string;
-  type: 'folder' | 'dossier' | 'casefile' | 'faction' | 'network' | 'readme';
-  content: any;
-  zIndex: number;
   closing?: boolean;
+  // biome-ignore lint/suspicious/noExplicitAny: content shape varies by window type
+  content: any;
+  id: string;
   minimized?: boolean;
   position?: { x: number; y: number };
+  title: string;
+  type: "folder" | "dossier" | "casefile" | "faction" | "network" | "readme";
+  zIndex: number;
 }

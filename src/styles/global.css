@@ -19,10 +19,8 @@
   --color-status-safe: oklch(0.7 0.2 145);
   --color-status-info: oklch(0.65 0.15 245);
   --color-status-neutral: oklch(0.55 0 0);
-  --font-mono: "JetBrains Mono", "Geist Mono", "Courier New", monospace;
+  --font-mono: var(--font-jetbrains-mono), "Geist Mono", "Courier New", monospace;
 }
-
-/* Import JetBrains Mono from Google Fonts via @import or link in layout */
 
 /* Base styles */
 body {

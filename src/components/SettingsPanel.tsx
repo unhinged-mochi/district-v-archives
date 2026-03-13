@@ -1,64 +1,95 @@
 interface Settings {
+  backgroundEnabled: boolean;
   crtEnabled: boolean;
   flickerEnabled: boolean;
-  backgroundEnabled: boolean;
 }
 
 interface SettingsPanelProps {
-  settings: Settings;
-  onToggle: (key: keyof Settings) => void;
   onClose: () => void;
+  onToggle: (key: keyof Settings) => void;
+  settings: Settings;
 }
 
-function Toggle({ label, enabled, onToggle }: { label: string; enabled: boolean; onToggle: () => void }) {
+function Toggle({
+  label,
+  enabled,
+  onToggle,
+}: {
+  label: string;
+  enabled: boolean;
+  onToggle: () => void;
+}) {
   return (
-    <div
-      className="flex items-center justify-between py-2 cursor-pointer text-terminal-amber"
+    <button
+      className="flex w-full cursor-pointer items-center justify-between border-none bg-transparent py-2 text-left font-mono text-terminal-amber"
       onClick={onToggle}
+      type="button"
     >
       <span className="text-sm">{label}</span>
       <span
-        className="text-sm font-bold px-2 py-0.5 border"
+        className="border px-2 py-0.5 font-bold text-sm"
         style={{
-          borderColor: enabled ? 'var(--color-terminal-amber)' : 'var(--color-terminal-amber-dim)',
-          color: enabled ? 'var(--color-terminal-amber)' : 'var(--color-terminal-amber-dim)',
-          backgroundColor: enabled ? 'color-mix(in oklch, var(--color-terminal-amber) 15%, transparent)' : 'transparent',
+          borderColor: enabled
+            ? "var(--color-terminal-amber)"
+            : "var(--color-terminal-amber-dim)",
+          color: enabled
+            ? "var(--color-terminal-amber)"
+            : "var(--color-terminal-amber-dim)",
+          backgroundColor: enabled
+            ? "color-mix(in oklch, var(--color-terminal-amber) 15%, transparent)"
+            : "transparent",
         }}
       >
-        {enabled ? 'ON' : 'OFF'}
+        {enabled ? "ON" : "OFF"}
       </span>
-    </div>
+    </button>
   );
 }
 
-export default function SettingsPanel({ settings, onToggle, onClose }: SettingsPanelProps) {
+export default function SettingsPanel({
+  settings,
+  onToggle,
+  onClose,
+}: SettingsPanelProps) {
   return (
-    <div
-      className="fixed inset-0 z-[8999] flex items-center justify-center"
-      style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+    <button
+      aria-label="Close settings"
+      className="fixed inset-0 z-[8999] flex items-center justify-center border-none bg-transparent p-0"
       onClick={onClose}
+      style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+      type="button"
     >
       <div
-        className="w-80 font-mono border border-terminal-amber bg-terminal-bg p-4"
+        className="w-80 border border-terminal-amber bg-terminal-bg p-4 font-mono"
         onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className="text-sm font-bold mb-3 pb-2 border-b border-terminal-amber text-terminal-amber flex justify-between"
-        >
+        <div className="mb-3 flex justify-between border-terminal-amber border-b pb-2 font-bold text-sm text-terminal-amber">
           <span>TERMINAL SETTINGS</span>
-          <button className="close-btn" onClick={onClose}>[X]</button>
+          <button className="close-btn" onClick={onClose} type="button">
+            [X]
+          </button>
         </div>
 
-        <Toggle label="CRT SCANLINES" enabled={settings.crtEnabled} onToggle={() => onToggle('crtEnabled')} />
-        <Toggle label="SCREEN FLICKER" enabled={settings.flickerEnabled} onToggle={() => onToggle('flickerEnabled')} />
-        <Toggle label="PARTICLE BACKGROUND" enabled={settings.backgroundEnabled} onToggle={() => onToggle('backgroundEnabled')} />
+        <Toggle
+          enabled={settings.crtEnabled}
+          label="CRT SCANLINES"
+          onToggle={() => onToggle("crtEnabled")}
+        />
+        <Toggle
+          enabled={settings.flickerEnabled}
+          label="SCREEN FLICKER"
+          onToggle={() => onToggle("flickerEnabled")}
+        />
+        <Toggle
+          enabled={settings.backgroundEnabled}
+          label="PARTICLE BACKGROUND"
+          onToggle={() => onToggle("backgroundEnabled")}
+        />
 
-        <div
-          className="text-[10px] mt-4 pt-2 border-t border-terminal-amber text-terminal-amber-dim text-center"
-        >
+        <div className="mt-4 border-terminal-amber border-t pt-2 text-center text-[10px] text-terminal-amber-dim">
           EFFECTS AUTO-DISABLED FOR REDUCED MOTION PREFERENCE
         </div>
       </div>
-    </div>
+    </button>
   );
 }

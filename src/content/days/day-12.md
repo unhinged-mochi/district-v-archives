@@ -19,3 +19,7 @@ Niko and [Louise Cielo](dossier:derem-kado) held their wedding ceremony. [Louis 
 ## -- Anita & River's Wedding
 [Anita Heist](dossier:byeolyuna_) and [River Kawa](dossier:ryu-hari) held their wedding ceremony. [Louis Cielo](dossier:rai-galilei), [Louise Cielo](dossier:derem-kado), and Bob Burgerweather attended.
 [> 4:37:06 River Kawa POV](https://www.youtube.com/live/k16OvgdcG3s?si=op1DV-2cGcAPnT4M&t=16626)
+
+## -- Roku & Chase's Fake Vows
+[Roku Nana](dossier:nana-asteria) and [Chase McCarthy](dossier:rosco-graves) stood by a ledge at the Sakura village. After a debrief on information Nana had just learned about her father, she gave Chase an emerald ring as a thank you for being there for her. They joked that it seemed like they were getting married and decided to act out fake vows to each other, both saying "I do" as they looked out to the sky together.
+[> 9:13:28 Rosco Graves POV](https://www.youtube.com/live/3fxl8aN-7Js?si=tRvJ-BTuo0DLhAJO&t=33208)

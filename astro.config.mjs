@@ -1,7 +1,7 @@
 // @ts-check
 
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 import react from '@astrojs/react';
 
@@ -12,4 +12,19 @@ export default defineConfig({
 	},
 
   integrations: [react()],
+
+  fonts: [
+    {
+      name: 'JetBrains Mono',
+      cssVariable: '--font-jetbrains-mono',
+      provider: fontProviders.google(),
+      weights: [300, 400, 500, 600, 700],
+    },
+  ],
+
+  experimental: {
+    queuedRendering: {
+      enabled: true,
+    },
+  },
 });

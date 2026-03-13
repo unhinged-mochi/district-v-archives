@@ -1,45 +1,46 @@
 ---
-import '../styles/global.css';
-import { getCollection } from 'astro:content';
-import yaml from 'js-yaml';
-import { readFileSync } from 'fs';
-import DesktopApp from '../components/DesktopApp';
+import "../styles/global.css";
+import { Font } from "astro:assets";
+import { getCollection } from "astro:content";
+import { readFileSync } from "node:fs";
+import yaml from "js-yaml";
+import DesktopApp from "../components/DesktopApp";
 
 // Load content collections
-const charactersRaw = await getCollection('characters');
-const daysRaw = await getCollection('days');
-const factionsRaw = await getCollection('factions');
-const sightingsRaw = await getCollection('sightings');
+const charactersRaw = await getCollection("characters");
+const daysRaw = await getCollection("days");
+const factionsRaw = await getCollection("factions");
+const sightingsRaw = await getCollection("sightings");
 
 // Load relationships YAML
-let relationships: any[] = [];
+let relationships: unknown[] = [];
 try {
-  const relYaml = readFileSync('./src/content/relationships.yaml', 'utf-8');
-  const parsed = yaml.load(relYaml) as any;
+  const relYaml = readFileSync("./src/content/relationships.yaml", "utf-8");
+  const parsed = yaml.load(relYaml) as { relationships?: unknown[] };
   relationships = parsed?.relationships || [];
 } catch (e) {
-  console.warn('Could not load relationships.yaml:', e);
+  console.warn("Could not load relationships.yaml:", e);
 }
 
 // Transform to plain objects for client-side
 const characters = charactersRaw.map((c) => ({
   id: c.id,
   ...c.data,
-  body: c.body || '',
+  body: c.body || "",
 }));
 
 const days = daysRaw
   .map((d) => ({
     id: d.id,
     ...d.data,
-    body: d.body || '',
+    body: d.body || "",
   }))
   .sort((a, b) => a.day - b.day);
 
 const factions = factionsRaw.map((f) => ({
   id: f.id,
   ...f.data,
-  body: f.body || '',
+  body: f.body || "",
 }));
 
 const sightings = sightingsRaw.map((s) => ({
@@ -50,17 +51,18 @@ const sightings = sightingsRaw.map((s) => ({
 
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="generator" content={Astro.generator}>
     <title>LSPD Terminal // District V Archive</title>
-    <meta name="description" content="Classified LSPD case files from the District V GTA RP event (Feb 21 - Mar 4, 2026)" />
-    <meta name="theme-color" content="#FFB000" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <meta
+      name="description"
+      content="Classified LSPD case files from the District V GTA RP event (Feb 21 - Mar 4, 2026)"
+    >
+    <meta name="theme-color" content="#FFB000">
+    <Font cssVariable="--font-jetbrains-mono" preload />
   </head>
   <body>
     <DesktopApp
@@ -73,16 +75,16 @@ const sightings = sightingsRaw.map((s) => ({
     />
     <script>
       console.log(
-        '%c LSPD TERMINAL v5.0.2 ',
-        'background: #ffb000; color: #0a0a0a; font-weight: bold; font-family: monospace; padding: 4px 8px;'
+        "%c LSPD TERMINAL v6.0.0 ",
+        "background: #ffb000; color: #0a0a0a; font-weight: bold; font-family: monospace; padding: 4px 8px;"
       );
       console.log(
-        '%c⚠ WARNING: Unauthorized access to this terminal is a federal offense.',
-        'color: #ffb000; font-family: monospace;'
+        "%c⚠ WARNING: Unauthorized access to this terminal is a federal offense.",
+        "color: #ffb000; font-family: monospace;"
       );
       console.log(
-        '%cCase #DV-2026-0221 // District V Archive // CLASSIFIED',
-        'color: #ffb000; font-family: monospace; opacity: 0.6;'
+        "%cCase #DV-2026-0221 // District V Archive // CLASSIFIED",
+        "color: #ffb000; font-family: monospace; opacity: 0.6;"
       );
     </script>
   </body>

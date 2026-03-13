@@ -1,14 +1,21 @@
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const characters = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/characters' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/characters" }),
   schema: z.object({
     name: z.string(),
     streamer: z.string(),
-    agency: z.string().default('Independent'),
+    agency: z.string().default("Independent"),
     faction: z.string(),
-    status: z.enum(['AT LARGE', 'IN CUSTODY', 'DECEASED', 'ACTIVE DUTY', 'DISCHARGED', 'EMPLOYED']),
+    status: z.enum([
+      "AT LARGE",
+      "IN CUSTODY",
+      "DECEASED",
+      "ACTIVE DUTY",
+      "DISCHARGED",
+      "EMPLOYED",
+    ]),
     threatLevel: z.number().min(1).max(10),
     mugshot: z.string().optional(),
     youtube: z.string().optional(),
@@ -18,7 +25,7 @@ const characters = defineCollection({
 });
 
 const days = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/days' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/days" }),
   schema: z.object({
     day: z.number(),
     date: z.string(),
@@ -27,7 +34,7 @@ const days = defineCollection({
 });
 
 const factions = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/factions' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/factions" }),
   schema: z.object({
     name: z.string(),
     color: z.string(),
@@ -40,7 +47,7 @@ const factions = defineCollection({
 });
 
 const sightings = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/sightings' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/sightings" }),
   schema: z.object({
     title: z.string(),
     url: z.string(),
